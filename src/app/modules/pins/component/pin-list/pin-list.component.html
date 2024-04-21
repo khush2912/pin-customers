@@ -1,1 +1,69 @@
-<p>pin-list works!</p>
+<div class="mt-2">
+  <div>
+    <div class="d-flex">
+      <div class="flex-fill">
+        <h4>List of pins</h4>
+      </div>
+      <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#createCustomerModal">
+        <i class="bi bi-plus"></i>
+        Add Customer
+      </button>
+      <button class="btn btn-secondary ms-2" data-bs-toggle="modal" data-bs-target="#createPinModal">
+        <i class="bi bi-plus"></i>
+        Add Pin
+      </button>
+    </div>
+    <div class="table-responsive mt-2">
+      <table class="table table-active">
+        <thead>
+        <tr>
+          <th>Title</th>
+          <th>Image</th>
+          <th>Collaborator</th>
+          <th>Privacy</th>
+        </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<!-- Create Customer Modal -->
+<div class="modal fade" id="createCustomerModal" tabindex="-1" aria-labelledby="createCustomerModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="createCustomerModalLabel">
+          Create Customer
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <app-create-customer></app-create-customer>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Create Pin Modal -->
+<div class="modal fade" id="createPinModal" tabindex="-1" aria-labelledby="createPinModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg modal-fullscreen-sm-down">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="createPinModalLabel">
+          Create Customer
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <app-create-pin></app-create-pin>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -7,11 +7,14 @@ import {CreatePinComponent} from "../create-pins/create-pin.component";
 
 
 @NgModule({
-  declarations: [
-    CreateCustomerComponent
-  ],
-  imports: [
-    CommonModule,
-  ]
+    declarations: [
+        CreateCustomerComponent
+    ],
+    exports: [
+        CreateCustomerComponent
+    ],
+    imports: [
+        CommonModule,
+    ]
 })
 export class CreateCustomersModule { }

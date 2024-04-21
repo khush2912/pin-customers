@@ -1,0 +1,13 @@
+.file-drop-zone {
+  border: dotted 3px lightgray;
+  height: 100%;
+  background-color: lightgray;
+
+  &.hover {
+    border: dotted 3px green;
+  }
+}
+
+.invalid-feedback {
+  display: block !important;
+}

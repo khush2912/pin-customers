@@ -8,10 +8,6 @@ export const routes: Routes = [
   },
   {
     path: 'pins',
-    loadChildren: () => import('./shared/modules/create-pins/create-pins.module').then(m => m.CreatePinsModule)
+    loadChildren: () => import('./modules/pins/pins.module').then(m => m.PinsModule)
   },
-  {
-    path: 'customers',
-    loadChildren: () => import('./shared/modules/create-customers/create-customers.module').then(m => m.CreateCustomersModule)
-  }
 ];
