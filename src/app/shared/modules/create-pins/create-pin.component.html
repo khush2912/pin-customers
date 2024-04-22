@@ -1,3 +1,4 @@
+<block-ui></block-ui>
 <div>
   <form [formGroup]="formGroup" novalidate>
     <div class="row mb-3">
@@ -5,28 +6,39 @@
       <div class="col-sm-9">
         <input type="text" class="form-control" id="title" formControlName="title">
         <div *ngIf="formGroup.get('title')?.invalid && formGroup.get('title')?.touched" class="invalid-feedback">
-          <div>
-            Invalid
+          <div *ngIf="formGroup.get('title')?.hasError('required')">
+            This field is required.
           </div>
         </div>
       </div>
     </div>
 
-    <div class="row mb-3">
+    <div class="row mb-3 align-items-center">
       <label class="col-sm-3 col-form-label text-start text-sm-end">Image</label>
       <div class="col-sm-9">
-        <div ng2FileDrop
-             class="file-drop-zone form-control d-flex align-items-center"
-             [class.hover]="hasBaseDropZoneOver"
-             (fileOver)="fileOver($event)"
-             (click)="fileInput.click()"
-             (onFileDrop)="fileSelectOrDrop($event)"
-        >
-          Choose & Drag and Drop file here
+        <div class="d-flex gap-3">
+          <div class="position-relative d-flex align-items-center" *ngIf="selectedFileBase64Str">
+            <i class="bi bi-x-circle text-danger position-absolute top-0 start-100 translate-middle cursor-pointer" (click)="clearFileSelection()"></i>
+            <img [src]="selectedFileBase64Str" width="100px" height="100px" alt="" />
+          </div>
+          <div ng2FileDrop
+               class="file-drop-zone form-control d-flex align-items-center"
+               [class.hover]="hasBaseDropZoneOver"
+               (fileOver)="fileOver($event)"
+               (click)="fileInput.click()"
+               (onFileDrop)="fileSelectOrDrop($event)"
+          >
+            Choose & Drag and Drop file here
+          </div>
         </div>
         <input #fileInput type="file" ng2FileSelect (onFileSelected)="fileSelectOrDrop($event)" style="display: none;">
         <div *ngIf="fileSelectError" class="invalid-feedback">
           {{fileSelectStr}}
+        </div>
+        <div *ngIf="formGroup.get('file')?.invalid && formGroup.get('file')?.touched" class="invalid-feedback">
+          <div *ngIf="formGroup.get('file')?.hasError('required')">
+            This field is required.
+          </div>
         </div>
       </div>
     </div>
@@ -34,26 +46,43 @@
     <div class="row mb-3">
       <label class="col-sm-3 col-form-label text-start text-sm-end">Colaboratory</label>
       <div class="col-sm-9">
-        <ngx-select></ngx-select>
+        <ngx-select
+          [items]="customers"
+          [multiple]="true"
+          optionValueField="id"
+          optionTextField="title"
+          formControlName="collaboratorIds"></ngx-select>
+        <div *ngIf="formGroup.get('collaboratorIds')?.invalid && formGroup.get('collaboratorIds')?.touched" class="invalid-feedback">
+          <div *ngIf="formGroup.get('collaboratorIds')?.hasError('required')">
+            This field is required.
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="row mb-3">
       <label class="col-sm-3 col-form-label text-start text-sm-end">Privacy</label>
-      <div class="col-sm-9 d-flex align-items-center">
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="visibility" id="privateRadio" value="Private">
-          <label class="form-check-label" for="privateRadio">Private</label>
+      <div class="col-sm-9">
+        <div class="d-flex align-items-center h-100">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="privacy" id="privateRadio" value="Private" formControlName="privacy">
+            <label class="form-check-label" for="privateRadio">Private</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="privacy" id="publicRadio" value="Public" formControlName="privacy">
+            <label class="form-check-label" for="publicRadio">Public</label>
+          </div>
         </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="visibility" id="publicRadio" value="Public">
-          <label class="form-check-label" for="publicRadio">Public</label>
+        <div *ngIf="formGroup.get('privacy')?.invalid && formGroup.get('privacy')?.touched" class="invalid-feedback">
+          <div *ngIf="formGroup.get('privacy')?.hasError('required')">
+            This field is required.
+          </div>
         </div>
       </div>
     </div>
 
     <div class="text-center">
-      <button type="button" class="btn btn-primary">Create Pin</button>
+      <button type="button" class="btn btn-primary" (click)="createPin()">{{pin ? 'Update' : 'Create'}} Pin</button>
     </div>
   </form>
 </div>

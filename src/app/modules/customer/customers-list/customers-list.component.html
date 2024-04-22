@@ -3,15 +3,11 @@
   <div>
     <div class="d-flex">
       <div class="flex-fill">
-        <h4>List of pins</h4>
+        <h4>List of Customers</h4>
       </div>
-      <button class="btn btn-secondary" (click)="openModal('createCustomerModal')">
+      <button class="btn btn-primary" (click)="openCustomerModal()">
         <i class="bi bi-plus"></i>
         Add Customer
-      </button>
-      <button class="btn btn-secondary ms-2" (click)="openModal('createPinModal')">
-        <i class="bi bi-plus"></i>
-        Add Pin
       </button>
     </div>
     <div>
@@ -20,35 +16,34 @@
           <thead>
           <tr>
             <th>Title</th>
-            <th>Image</th>
-            <th>Collaborator</th>
-            <th>Privacy</th>
+            <th>Email</th>
+            <th>Region</th>
+            <th>Country</th>
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let pin of pins">
+          <tr *ngFor="let customer of customerList">
             <td class="align-middle text-center text-nowrap">
-              <a class="cursor-pointer" (click)="editPin(pin)">{{pin.title}}</a>
+              <a class="cursor-pointer" (click)="editCustomer(customer)">{{customer.title}}</a>
             </td>
             <td class="align-middle text-center">
-              <img *ngIf="pin.file" [src]="pin.file" width="100px" alt=""/>
+              {{customer.email}}
             </td>
             <td class="align-middle text-center">
-                <span class="badge rounded-pill text-bg-secondary mx-1 cursor-pointer"
-                      *ngFor="let collaborator of pin.collaborators" (click)="editCustomer(collaborator)">
-                  {{collaborator.title}}
-                </span>
+              {{customer.region}}
             </td>
-            <td class="align-middle text-center">{{pin.privacy}}</td>
+            <td class="align-middle text-center">
+              {{customer.country}}
+            </td>
           </tr>
-          <tr class="no-data" *ngIf="!pins.length">
+          <tr class="no-data" *ngIf="!customerList.length">
             <td colspan="4" class="text-center">No data available</td>
           </tr>
           </tbody>
         </table>
       </div>
     </div>
-    <nav aria-label="page navigation example" *ngIf="pins.length">
+    <nav aria-label="page navigation example" *ngIf="customerList.length">
       <ul class="pagination justify-content-end">
         <li class="page-item" [class.disabled]="currentPage === 1" (click)="nextPrevPage(-1)">
           <a class="page-link" aria-label="Previous">
@@ -57,7 +52,7 @@
         </li>
         <li class="page-item"></li>
         <li class="page-item" *ngFor="let pageNo of allPageNoArray" [class.active]="pageNo === currentPage"
-            (click)="loadPins(pageNo)">
+            (click)="loadCustomers(pageNo)">
           <a class="page-link">{{ pageNo }}</a>
         </li>
         <li class="page-item" [class.disabled]="currentPage === allPageNoArray.length" (click)="nextPrevPage(1)">
@@ -78,32 +73,13 @@
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="createCustomerModalLabel">
-          {{clickedCustomer ? 'Update' : 'Create'}} Customer
+          Create Customer
         </h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="container">
-          <app-create-customer [customer]="clickedCustomer" (refreshList)="listAllPins()"></app-create-customer>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Create Pin Modal -->
-<div class="modal fade" id="createPinModal" tabindex="-1" aria-labelledby="createPinModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg modal-fullscreen-sm-down">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="createPinModalLabel">
-          {{clickedPin ? 'Update' : 'Create'}} Pin
-        </h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="container">
-          <app-create-pin [pin]="clickedPin" (refreshList)="listAllPins()"></app-create-pin>
+          <app-create-customer [customer]="clickedCustomer" (refreshList)="listAllCustomers()"></app-create-customer>
         </div>
       </div>
     </div>

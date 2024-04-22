@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {PinListComponent} from "./component/pin-list/pin-list.component";
+import {CustomersListComponent} from "./customers-list/customers-list.component";
 
 const routes: Routes = [
   {
@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: 'list',
-    component: PinListComponent
+    component: CustomersListComponent
   }
 ];
 
@@ -18,4 +18,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class PinsRoutingModule { }
+export class CustomerRoutingModule { }

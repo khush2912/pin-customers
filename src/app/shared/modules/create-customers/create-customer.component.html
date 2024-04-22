@@ -1,44 +1,65 @@
-<div>
-  <form>
-    <div class="row mb-3">
-      <label for="title" class="col-sm-2 col-form-label text-start text-sm-end">Title</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="title">
+<block-ui>
+  <div>
+    <form [formGroup]="formGroup" novalidate>
+      <div class="row mb-3">
+        <label for="title" class="col-sm-2 col-form-label text-start text-sm-end">Title</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="title" formControlName="title">
+          <div *ngIf="formGroup.get('title')?.invalid && formGroup.get('title')?.touched" class="invalid-feedback">
+            <div *ngIf="formGroup.get('title')?.hasError('required')">
+              This field is required.
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="row mb-3">
-      <label for="email" class="col-sm-2 col-form-label text-start text-sm-end">Email</label>
-      <div class="col-sm-10">
-        <input type="email" class="form-control" id="email">
+      <div class="row mb-3">
+        <label for="email" class="col-sm-2 col-form-label text-start text-sm-end">Email</label>
+        <div class="col-sm-10">
+          <input type="email" class="form-control" id="email" formControlName="email">
+          <div *ngIf="formGroup.get('email')?.invalid && formGroup.get('email')?.touched" class="invalid-feedback">
+            <div *ngIf="formGroup.get('email')?.hasError('required')">
+              This field is required.
+            </div>
+            <div *ngIf="formGroup.get('email')?.hasError('email')">
+              Please enter valid E-mail.
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="row mb-3">
-      <label for="region" class="col-sm-2 col-form-label text-start text-sm-end">Region</label>
-      <div class="col-sm-10">
-        <select class="form-select" id="region">
-          <option selected>Select</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        </select>
+      <div class="row mb-3">
+        <label for="region" class="col-sm-2 col-form-label text-start text-sm-end">Region</label>
+        <div class="col-sm-10">
+          <select class="form-select" id="region" formControlName="region" (change)="regionSelectionChange($event)">
+            <option value="" selected>Select</option>
+            <option *ngFor="let region of regions" [value]="region">{{region}}</option>
+          </select>
+          <div *ngIf="formGroup.get('region')?.invalid && formGroup.get('region')?.touched" class="invalid-feedback">
+            <div *ngIf="formGroup.get('region')?.hasError('required')">
+              This field is required.
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="row mb-3">
-      <label for="country" class="col-sm-2 col-form-label text-start text-sm-end">Country</label>
-      <div class="col-sm-10">
-        <select class="form-select" id="country">
-          <option selected>Select</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        </select>
+      <div class="row mb-3">
+        <label for="country" class="col-sm-2 col-form-label text-start text-sm-end">Country</label>
+        <div class="col-sm-10">
+          <select class="form-select" id="country" formControlName="country">
+            <option value="" selected>Select</option>
+            <option *ngFor="let country of filteredCountries" [value]="country.country">{{country.country}}</option>
+          </select>
+          <div *ngIf="formGroup.get('country')?.invalid && formGroup.get('country')?.touched" class="invalid-feedback">
+            <div *ngIf="formGroup.get('country')?.hasError('required')">
+              This field is required.
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="text-center">
-      <button type="button" class="btn btn-primary">Create Customer</button>
-    </div>
-  </form>
-</div>
+      <div class="text-center">
+        <button type="button" class="btn btn-primary" (click)="createCustomer()">{{customer ? 'Update' : 'Create'}} Customer</button>
+      </div>
+    </form>
+  </div>
+</block-ui>
